@@ -275,7 +275,8 @@ const windowIsDefined = (typeof window === "object");
 						}
 					}
 
-					return 100 * (value - this.options.min) / (this.options.max - this.options.min);
+					var basePercentage = (($(this)[0].$element.siblings('.slider-horizontal').width() - $('.'+this.options.handle).width()) / $(this)[0].$element.siblings('.slider-horizontal').width()) * 100;
+					return basePercentage * (value - this.options.min) / (this.options.max - this.options.min);
 				}
 			},
 
@@ -1091,14 +1092,15 @@ const windowIsDefined = (typeof window === "object");
 
 					var styleSize = this.options.orientation === 'vertical' ? 'height' : 'width';
 					var styleMargin = this.options.orientation === 'vertical' ? 'marginTop' : 'marginLeft';
-					var labelSize = this._state.size / (this.options.ticks.length - 1);
+					var labelSize = this._state.size / (this.options.ticks.length);
 
 					if (this.tickLabelContainer) {
 						var extraMargin = 0;
 						if (this.options.ticks_positions.length === 0) {
-							if (this.options.orientation !== 'vertical') {
+							//uncommented by shx
+							/*if (this.options.orientation !== 'vertical') {
 								this.tickLabelContainer.style[styleMargin] = -labelSize/2 + 'px';
-							}
+							}*/
 
 							extraMargin = this.tickLabelContainer.offsetHeight;
 						} else {

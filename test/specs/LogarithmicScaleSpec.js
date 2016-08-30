@@ -19,7 +19,7 @@ describe("Slider with logarithmic scale tests", function() {
 			value: 100 // This should be at 50%
 		});
 
-		var expectedPostition = 210 / 2 + 'px';
+		var expectedPostition = 200  + 'px';
 
 		var handle = $("#testSlider1").siblings('div.slider').find('.min-slider-handle');
 		expect(handle.css('left')).toBe(expectedPostition);
@@ -34,8 +34,8 @@ describe("Slider with logarithmic scale tests", function() {
 		});
 
 		// Position expected for the '10' tick
-		var expectedTickOnePosition = 210 / 2 + 'px'; //should be at 50%
-		
+		var expectedTickOnePosition = 200 + 'px'; //should be at 50%
+
 		var handle = $("#testSlider1").siblings('div.slider').find(".slider-tick").eq(1);
 		expect(handle.css('left')).toBe(expectedTickOnePosition);
 	});

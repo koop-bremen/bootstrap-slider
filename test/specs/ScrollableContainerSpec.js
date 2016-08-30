@@ -78,7 +78,7 @@ describe("Scrollable test", function() {
             testSlider.sliderElem.dispatchEvent(mousemove);
             newSliderValue = testSlider.getValue();
 
-            expect(newSliderValue).toEqual(14);
+            expect(newSliderValue).toEqual(13);
         });
     });
 

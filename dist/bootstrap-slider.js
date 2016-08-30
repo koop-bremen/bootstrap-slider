@@ -3,7 +3,7 @@
 ========================================================= */
 "use strict";
 
-function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 /*! =========================================================
  * bootstrap-slider.js
@@ -273,7 +273,8 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 						}
 					}
 
-					return 100 * (value - this.options.min) / (this.options.max - this.options.min);
+					var basePercentage = ($(this)[0].$element.siblings('.slider-horizontal').width() - $('.' + this.options.handle).width()) / $(this)[0].$element.siblings('.slider-horizontal').width() * 100;
+					return basePercentage * (value - this.options.min) / (this.options.max - this.options.min);
 				}
 			},
 
@@ -310,7 +311,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 		/*************************************************
   						CONSTRUCTOR
   	**************************************************/
-		Slider = function (element, options) {
+		Slider = function Slider(element, options) {
 			createNewSlider.call(this, element, options);
 			return this;
 		};
@@ -1049,14 +1050,15 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 
 					var styleSize = this.options.orientation === 'vertical' ? 'height' : 'width';
 					var styleMargin = this.options.orientation === 'vertical' ? 'marginTop' : 'marginLeft';
-					var labelSize = this._state.size / (this.options.ticks.length - 1);
+					var labelSize = this._state.size / this.options.ticks.length;
 
 					if (this.tickLabelContainer) {
 						var extraMargin = 0;
 						if (this.options.ticks_positions.length === 0) {
-							if (this.options.orientation !== 'vertical') {
-								this.tickLabelContainer.style[styleMargin] = -labelSize / 2 + 'px';
-							}
+							//uncommented by shx
+							/*if (this.options.orientation !== 'vertical') {
+       	this.tickLabelContainer.style[styleMargin] = -labelSize/2 + 'px';
+       }*/
 
 							extraMargin = this.tickLabelContainer.offsetHeight;
 						} else {
@@ -1648,20 +1650,20 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 				if (this.options.orientation === 'vertical') {
 					var tooltipPos = this.options.tooltip_position || 'right';
 					var oppositeSide = tooltipPos === 'left' ? 'right' : 'left';
-					tooltips.forEach((function (tooltip) {
+					tooltips.forEach(function (tooltip) {
 						this._addClass(tooltip, tooltipPos);
 						tooltip.style[oppositeSide] = '100%';
-					}).bind(this));
+					}.bind(this));
 				} else if (this.options.tooltip_position === 'bottom') {
-					tooltips.forEach((function (tooltip) {
+					tooltips.forEach(function (tooltip) {
 						this._addClass(tooltip, 'bottom');
 						tooltip.style.top = 22 + 'px';
-					}).bind(this));
+					}.bind(this));
 				} else {
-					tooltips.forEach((function (tooltip) {
+					tooltips.forEach(function (tooltip) {
 						this._addClass(tooltip, 'top');
 						tooltip.style.top = -this.tooltip.outerHeight - 14 + 'px';
-					}).bind(this));
+					}.bind(this));
 				}
 			}
 		};
@@ -1671,7 +1673,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
   	*********************************/
 		if ($) {
 			(function () {
-				var autoRegisterNamespace = undefined;
+				var autoRegisterNamespace = void 0;
 
 				if (!$.fn.slider) {
 					$.bridget(NAMESPACE_MAIN, Slider);
